@@ -75,7 +75,9 @@ public class PlayerController : MonoBehaviour
 		} else {
 			grounded = false;
 		}
-		Run ();
+		if (!isDashing) {
+			Run ();
+		}
 
 		if (Input.GetKeyDown (KeyCode.C)) {
 			if (!isDashing) {

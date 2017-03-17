@@ -120,7 +120,7 @@ public class CustomPhysicCharacterController : MonoBehaviour {
 		public bool collideLeft,collideRight,collideWallLeft,collideWallRight;
 
 		public void Reset(){
-			collideTop = collideBottom = collideLeft = collideRight = false;
+			collideTop = collideBottom = collideLeft = collideRight = collideWallLeft = collideWallRight = false;
 		}
 	}
 }
