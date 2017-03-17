@@ -8,15 +8,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public float runspeed;
-	public float dashSpeed;
-	public float dashCooldown;
-	public bool grounded,isDashing;
+	public float dashSpeed,dashCooldown,dashTime;
+	public bool grounded,isDashing,isHovering;
 	public bool facingRight = true;
+	public Vector2 currentVelocity;
+	public bool isGravity = true;
+	public Animator anim;
 
 	private CustomPhysicCharacterController characterController;
-	public Vector2 currentVelocity;
-
-	public Animator anim;
 	private static PlayerController _instance;
 
 	public static PlayerController Instance
@@ -75,13 +74,13 @@ public class PlayerController : MonoBehaviour
 		} else {
 			grounded = false;
 		}
-		if (!isDashing) {
+		if (!isDashing && !isHovering) {
 			Run ();
 		}
 
 		if (Input.GetKeyDown (KeyCode.C)) {
 			if (!isDashing) {
-				StartCoroutine(Dash (0.4f));
+				StartCoroutine(Dash (dashTime));
 			}
 		}
 				
@@ -100,7 +99,9 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate ()
 	{	
-		currentVelocity += Physics2D.gravity * 0.2f * Time.fixedDeltaTime;		
+		if (isGravity) {
+			currentVelocity += Physics2D.gravity * 0.2f * Time.fixedDeltaTime;
+		}
 		characterController.Move (currentVelocity);
 		if (characterController.collisionInfo.collideBottom) {
 			currentVelocity.y = 0;		
