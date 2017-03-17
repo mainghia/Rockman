@@ -70,13 +70,6 @@ public class CustomPhysicCharacterController : MonoBehaviour {
 				collisionInfo.collideLeft = direction < 0;
 				collisionInfo.collideRight = direction > 0;
 			}
-
-			RaycastHit2D hitWall = Physics2D.Raycast (raycastOrigin,new Vector2(direction,0),distance + skinWidth,wallCollisionMask);
-			if (hitWall) {
-				velocity.x = (hitWall.distance- skinWidth) * direction ;
-				collisionInfo.collideWallLeft = direction < 0;
-				collisionInfo.collideWallRight = direction > 0;	
-			}
 		}
 	}
 
@@ -117,10 +110,10 @@ public class CustomPhysicCharacterController : MonoBehaviour {
 
 	public struct CollisionInfo{
 		public bool collideTop,collideBottom;
-		public bool collideLeft,collideRight,collideWallLeft,collideWallRight;
+		public bool collideLeft,collideRight;
 
 		public void Reset(){
-			collideTop = collideBottom = collideLeft = collideRight = collideWallLeft = collideWallRight = false;
+			collideTop = collideBottom = collideLeft = collideRight = false;
 		}
 	}
 }

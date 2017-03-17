@@ -12,8 +12,8 @@ public class WallHandling : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!PlayerController.Instance.grounded  && (Input.GetAxis ("Horizontal") < 0) && characterController.collisionInfo.collideWallLeft ||
-			!PlayerController.Instance.grounded  && (Input.GetAxis ("Horizontal") > 0) && characterController.collisionInfo.collideWallRight)  {
+		if (!PlayerController.Instance.grounded  && (Input.GetAxis ("Horizontal") < 0) && characterController.collisionInfo.collideLeft ||
+			!PlayerController.Instance.grounded  && (Input.GetAxis ("Horizontal") > 0) && characterController.collisionInfo.collideRight)  {
 			wallSliding = true;
 			handleWallSliding ();
 		} else {
@@ -24,7 +24,7 @@ public class WallHandling : MonoBehaviour {
 
 	private void handleWallSliding ()
 	{
-		if (wallSliding) {
+		if (wallSliding && (Mathf.Abs(PlayerController.Instance.currentVelocity.y) < 0.05f) ) {
 			PlayerController.Instance.currentVelocity = new Vector2 (PlayerController.Instance.currentVelocity.x, -0.2f * Time.fixedDeltaTime);
 		}
 	}
